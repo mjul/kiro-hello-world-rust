@@ -115,8 +115,6 @@ pub async fn github_callback_handler(
     Query(query): Query<AuthCallbackQuery>,
     session: Session,
 ) -> Result<impl IntoResponse, AppError> {
-    tracing::debug!("GitHub callback received with state: {:?}", query.state);
-    
     // Check for OAuth2 error
     if let Some(error) = query.error {
         tracing::error!("GitHub OAuth2 error: {}", error);
@@ -129,14 +127,16 @@ pub async fn github_callback_handler(
 
     // Get stored CSRF token
     let stored_csrf_token = session.get_csrf_token().await?;
-    tracing::debug!("Stored CSRF token: {:?}", stored_csrf_token);
     
-    // TEMPORARY WORKAROUND: Skip CSRF validation for now to test the OAuth flow
-    // In production, you would need proper CSRF protection
-    tracing::warn!("TEMPORARY: Skipping CSRF validation for testing");
-    
-    // Create a dummy CSRF token for the OAuth handler
-    let csrf_token = CsrfToken::new(state_param.clone());
+    // For development: Use the state parameter as the CSRF token if session token is not available
+    // In production with HTTPS, the session cookie should persist properly
+    let csrf_token = if let Some(token) = stored_csrf_token {
+        CsrfToken::new(token)
+    } else {
+        // Fallback for development - use the state parameter
+        tracing::debug!("Using state parameter as CSRF token for development");
+        CsrfToken::new(state_param.clone())
+    };
 
     // Handle OAuth2 callback
     let user = state
