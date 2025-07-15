@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - SSO Web App{% endblock %}
+
+{% block navigation %}
+<form action="/logout" method="post" style="margin: 0;">
+    <button type="submit" class="btn btn-danger" style="padding: 0.5rem 1rem; font-size: 0.9rem;">
+        Logout
+    </button>
+</form>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h1>Welcome Back!</h1>
+    
+    <div class="user-info">
+        <h3>Hello {{ username }}!</h3>
+        {% if let Some(email_addr) = email %}
+        <p><strong>Email:</strong> {{ email_addr }}</p>
+        {% endif %}
+        <p><strong>Provider:</strong> 
+            {% if provider == "microsoft" %}
+                <span style="color: #0078d4;">Microsoft 365</span>
+            {% else if provider == "github" %}
+                <span style="color: #333;">GitHub</span>
+            {% else %}
+                {{ provider }}
+            {% endif %}
+        </p>
+    </div>
+    
+    <div style="margin-bottom: 2rem;">
+        <h2>You're successfully authenticated!</h2>
+        <p style="color: #666; margin-bottom: 1.5rem;">
+            This is your personal dashboard. You have successfully logged in using your 
+            {% if provider == "microsoft" %}Microsoft 365{% else if provider == "github" %}GitHub{% else %}{{ provider }}{% endif %} account.
+        </p>
+    </div>
+    
+    <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="color: #495057; margin-bottom: 1rem;">What's Next?</h3>
+        <ul style="text-align: left; color: #6c757d; line-height: 1.8;">
+            <li>Explore the application features</li>
+            <li>Update your profile settings</li>
+            <li>Access protected resources</li>
+            <li>Manage your account preferences</li>
+        </ul>
+    </div>
+    
+    <div style="border-top: 1px solid #eee; padding-top: 1.5rem;">
+        <p style="font-size: 0.9rem; color: #888; margin-bottom: 1rem;">
+            Need to switch accounts or sign out?
+        </p>
+        <form action="/logout" method="post" style="margin: 0;">
+            <button type="submit" class="btn btn-danger">
+                <svg width="16" height="16" viewBox="0 0 24 24" style="vertical-align: middle; margin-right: 8px;">
+                    <path fill="currentColor" d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                </svg>
+                Sign Out
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
