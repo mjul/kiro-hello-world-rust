@@ -33,9 +33,10 @@ impl SessionManager {
     pub fn layer(&self) -> SessionManagerLayer<MemoryStore> {
         SessionManagerLayer::new(self.store.clone())
             .with_secure(false) // Set to true in production with HTTPS
-            .with_same_site(tower_sessions::cookie::SameSite::Lax)
-            .with_http_only(true)
+            .with_same_site(tower_sessions::cookie::SameSite::None) // Allow cross-site for OAuth redirects
+            .with_http_only(false) // Temporarily disable HttpOnly for debugging
             .with_name("sso_session")
+            .with_path("/")
     }
 }
 

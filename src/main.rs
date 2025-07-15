@@ -26,8 +26,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Load configuration
     dotenvy::dotenv().ok();
+    
+    // Debug: Print environment variables
+    tracing::info!("GITHUB_CLIENT_ID from env: {:?}", std::env::var("GITHUB_CLIENT_ID"));
+    tracing::info!("MICROSOFT_CLIENT_ID from env: {:?}", std::env::var("MICROSOFT_CLIENT_ID"));
+    
     let config = Config::from_env()?;
     tracing::info!("Configuration loaded successfully");
+    tracing::info!("GitHub Client ID in config: {}", config.github_client_id);
 
     // Initialize database connection and run migrations
     let database = Database::new(&config.database_url).await?;
