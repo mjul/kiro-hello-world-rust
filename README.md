@@ -2,6 +2,11 @@
 
 A secure Single Sign-On (SSO) web application built with Rust and Axum, supporting authentication via Microsoft 365 and GitHub OAuth2 providers.
 
+## Kiro Review
+This was generated with AWS Kiro. I was generally surprised by how well it did on the first try. It needed a few iterations to get the GitHub SSO just right. 
+
+See also the [Go version](https://github.com/mjul/kiro-hello-world-go).
+
 ## Features
 
 - 🔐 **Secure OAuth2 Authentication** with Microsoft 365 and GitHub
