@@ -5,7 +5,11 @@ A secure Single Sign-On (SSO) web application built with Rust and Axum, supporti
 ## Kiro Review
 This was generated with AWS Kiro. I was generally surprised by how well it did on the first try. It needed a few iterations to get the GitHub SSO just right. 
 
-See also the [Go version](https://github.com/mjul/kiro-hello-world-go).
+This is part of an experiment with multiple version generated from the same specification:
+ - [Rust version](https://github.com/mjul/kiro-hello-world-rust) 
+ - [Go version](https://github.com/mjul/kiro-hello-world-go)
+ - [TypeScript version](https://github.com/mjul/kiro-hello-world-typescript) 
+
 
 ## Features
 
