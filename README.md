@@ -9,6 +9,7 @@ This is part of an experiment with multiple version generated from the same spec
  - [Rust version](https://github.com/mjul/kiro-hello-world-rust) 
  - [Go version](https://github.com/mjul/kiro-hello-world-go)
  - [TypeScript version](https://github.com/mjul/kiro-hello-world-typescript) 
+ - [Clojure version](https://github.com/mjul/kiro-hello-world-clojure) 
 
 
 ## Features
